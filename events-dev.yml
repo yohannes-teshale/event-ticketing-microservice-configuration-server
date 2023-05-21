@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://mongo:27017/events
+      uri: mongodb://localhost:27017/events
   application:
     name: events
 server:
