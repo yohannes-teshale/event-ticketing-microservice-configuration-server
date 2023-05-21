@@ -8,3 +8,5 @@ eureka:
 spring:
   application:
     name: notifications
+server:
+  port: 8088
