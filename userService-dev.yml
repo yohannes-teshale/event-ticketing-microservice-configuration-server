@@ -19,7 +19,7 @@ managemet:
   endpoints:
     web:
       exposure:
-        include: *
+        include: "*"
 #  zipkin:
 #    base-url: http://localhost:9411
 #  rabbitmq:
