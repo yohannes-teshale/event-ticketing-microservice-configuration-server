@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongo:27017/orders
+  application:
+    name: orders
+server:
+  port: 8082

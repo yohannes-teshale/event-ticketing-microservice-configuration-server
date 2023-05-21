@@ -1,0 +1,43 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongo:27017/events
+  application:
+    name: events
+server:
+  port: 8083
+
+
+kafka-producer-config:
+  acks: all
+  key-serializer-class: org.apache.kafka.common.serialization.StringSerializer
+  value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
+  compression-type: snappy
+  batch-size: 16384
+  batch-size-boost-factor: 100
+  linger-ms: 5
+  request-timeout-ms: 60000
+  retry-count: 5
+
+kafka-config:
+  bootstrap-servers: kafka:19092, kafka:29092, kafka:39092
+  schema-registry-url: schema.registry.url
+  schema-registry-url-key: http://schema_registry:8081
+  num-of-partitions: 3
+  replication-factor: 3
+kafka-consumer-config:
+  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+  auto-offset-reset: earliest
+  specific-avro-reader-key: specific.avro.reader
+  auto-startup: true
+  batch-listener: true
+
+event-service:
+  event-created-request-topic-name: events.created.request
+  EventCreatedResponseTopicName: events.created.response
+  EventUpdatedTopicName: events.updated
+  EventDeletedTopicName: events.deleted
+  EventStartedTopicName: events.started
+
+
