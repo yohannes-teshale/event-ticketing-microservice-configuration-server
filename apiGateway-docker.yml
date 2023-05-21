@@ -20,7 +20,10 @@ spring:
           uri: lb://EVENTS
           predicates:
             - Path=/api/eventAnalysis/**
-
+        - id: orders
+          uri: lb://ORDERS
+          predicates:
+            - Path=/api/orders/**
 
 management:
   endpoints:

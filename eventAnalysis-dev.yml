@@ -3,7 +3,7 @@ spring:
     name: eventAnalysis
 
 server:
-  port: 8083
+  port: 8085
 
 kafka-consumer-config:
   key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
