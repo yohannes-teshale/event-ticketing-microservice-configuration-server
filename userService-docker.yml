@@ -5,7 +5,7 @@ spring:
     name: users
   datasource:
     password: password
-    url: jdbc:postgresql://localhost:5431/user
+    url: jdbc:postgresql://postgres:5431/user
     username: yohannes
   jpa:
     hibernate:
@@ -15,19 +15,14 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+  zipkin:
+    base-url: http://zipkin:9411
+  profiles:
+    active: default
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://eurekaServer:8761/eureka
     fetch-registry: true
     register-with-eureka: true
     enabled: true
-#  zipkin:
-#    base-url: http://localhost:9411
-#  profiles:
-#    active: default
