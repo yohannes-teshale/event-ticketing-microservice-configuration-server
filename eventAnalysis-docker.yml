@@ -1,6 +1,11 @@
 spring:
   application:
     name: eventAnalysis
+  zipkin:
+    base-url: http://zipkin:9411
+  data:
+    mongodb:
+      uri: mongodb://mongo:27017/event-analysis
 
 server:
   port: 8083

@@ -1,6 +1,8 @@
 spring:
   application:
     name: eventAnalysis
+  zipkin:
+    base-url: http://zipkin:9411
   data:
     mongodb:
       uri: mongodb://localhost:27017/event-analysis

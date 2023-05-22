@@ -7,6 +7,8 @@ spring:
     password: password
     url: jdbc:postgresql://localhost:5431/user
     username: yohannes
+  zipkin:
+    base-url: http://localhost:9411
   jpa:
     hibernate:
       ddl-auto: update

@@ -4,6 +4,8 @@ spring:
       uri: mongodb://localhost:27017/events
   application:
     name: events
+  zipkin:
+    base-url: http://localhost:9411
 server:
   port: 8083
 

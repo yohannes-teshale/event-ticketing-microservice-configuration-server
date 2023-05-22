@@ -4,5 +4,9 @@ spring:
       uri: mongodb://mongo:27017/orders
   application:
     name: orders
+  zipkin:
+    base-url: http://zipkin:9411
 server:
   port: 8082
+  zipkin:
+    base-url: http://zipkin:9411

@@ -4,6 +4,8 @@ spring:
       uri: mongodb://mongo:27017/tickets
   application:
     name: tickets
+  zipkin:
+    base-url: http://zipkin:9411
 server:
   port: 8081
 eureka:

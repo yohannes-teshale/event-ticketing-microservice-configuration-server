@@ -1,6 +1,8 @@
 spring:
   application:
     name: gatewayServer
+  zipkin:
+    base-url: http://zipkin:9411
   cloud:
     gateway:
       routes:
