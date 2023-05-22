@@ -10,3 +10,18 @@ server:
   port: 8082
   zipkin:
     base-url: http://localhost:9411
+resilience4j:
+  circuitbreaker:
+    instances:
+      orderService:
+        register-health-indicator: true
+        ring-buffer-size-in-closed-state: 5
+        ring-buffer-size-in-half-open-state: 3
+        wait-duration-in-open-state:
+
+        failure-rate-threshold: 50
+        record-exceptions:
+          - java.lang.Throwable
+          - org.springframework.web.client.HttpServerErrorException
+          - org.springframework.web.client.ResourceAccessException
+          - java.util.concurrent.TimeoutException
