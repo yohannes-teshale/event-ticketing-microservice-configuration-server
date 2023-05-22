@@ -10,3 +10,73 @@ server:
   port: 8082
   zipkin:
     base-url: http://zipkin:9411
+resilience4j:
+  retry:
+    instances:
+      retryOrderService:
+        max-attempts: 5
+        wait-duration: 10000
+        retry-exceptions:
+          - java.util.concurrent.TimeoutException
+  bulkhead:
+    instances:
+      bulkheadOrderservice:
+        max-wait-duration: 10ms
+        max-concurrent-calls: 200
+  thread-pool-bulkhead:
+    instances:
+      bulkheadOrderservice:
+        max-thread-pool-size: 1
+        core-thread-pool-size: 1
+        queue-capacity: 1
+        keep-alive-duration: 20ms
+  circuitbreaker:
+    instances:
+      orderService:
+        register-health-indicator: true
+        ring-buffer-size-in-closed-state: 5
+        ring-buffer-size-in-half-open-state: 3
+        wait-duration-in-open-state:
+
+        failure-rate-threshold: 50
+        record-exceptions:
+          - java.lang.Throwable
+          - org.springframework.web.client.HttpServerErrorException
+          - org.springframework.web.client.ResourceAccessException
+          - java.util.concurrent.TimeoutException
+
+      ticketService:
+        register-health-indicator: true
+        ring-buffer-size-in-closed-state: 6
+        ring-buffer-size-in-half-open-state: 3
+        waitDurationInOpenState: 10s
+
+        failure-rate-threshold: 50
+        record-exceptions:
+          - java.lang.Throwable
+          - org.springframework.web.client.HttpServerErrorException
+          - org.springframework.web.client.ResourceAccessException
+          - java.util.concurrent.TimeoutException
+      eventAnalysisService:
+        register-health-indicator: true
+        ring-buffer-size-in-closed-state: 6
+        ring-buffer-size-in-half-open-state: 3
+        waitDurationInOpenState: 10s
+        failure-rate-threshold: 50
+        record-exceptions:
+          - java.lang.Throwable
+          - org.springframework.web.client.HttpServerErrorException
+          - org.springframework.web.client.ResourceAccessException
+          - java.util.concurrent.TimeoutException
+      userService:
+        register-health-indicator: true
+        ring-buffer-size-in-closed-state: 6
+        ring-buffer-size-in-half-open-state: 3
+        waitDurationInOpenState: 10s
+
+        failure-rate-threshold: 50
+        record-exceptions:
+          - java.lang.Throwable
+          - org.springframework.web.client.HttpServerErrorException
+          - org.springframework.web.client.ResourceAccessException
+          - java.util.concurrent.TimeoutException
