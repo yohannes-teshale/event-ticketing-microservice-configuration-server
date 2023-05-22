@@ -21,7 +21,7 @@ spring:
         - id: eventAnalysis
           uri: lb://EVENTANALYSIS
           predicates:
-            - Path=/api/eventAnalytics/**
+            - Path=/eventAnalytics/**
         - id: notifications
           uri: lb://NOTIFICATIONS
           predicates:
