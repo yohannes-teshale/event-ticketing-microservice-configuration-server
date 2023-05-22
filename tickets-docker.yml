@@ -15,3 +15,49 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     enabled: true
+resilience4j:
+  retry:
+    instances:
+      retryTicketService:
+        max-attempts: 5
+        wait-duration: 10000
+        retry-exceptions:
+          - java.util.concurrent.TimeoutException
+  bulkhead:
+    instances:
+      bulkheadTicketService:
+        max-wait-duration: 10ms
+        max-concurrent-calls: 200
+  thread-pool-bulkhead:
+    instances:
+      bulkheadTicketService:
+        max-thread-pool-size: 1
+        core-thread-pool-size: 1
+        queue-capacity: 1
+        keep-alive-duration: 20ms
+  circuitbreaker:
+    instances:
+      ticketService:
+        register-health-indicator: true
+        ring-buffer-size-in-closed-state: 5
+        ring-buffer-size-in-half-open-state: 3
+        wait-duration-in-open-state:
+
+        failure-rate-threshold: 50
+        record-exceptions:
+          - java.lang.Throwable
+          - org.springframework.web.client.HttpServerErrorException
+          - org.springframework.web.client.ResourceAccessException
+          - java.util.concurrent.TimeoutException
+      userService:
+        register-health-indicator: true
+        ring-buffer-size-in-closed-state: 6
+        ring-buffer-size-in-half-open-state: 3
+        waitDurationInOpenState: 10s
+
+        failure-rate-threshold: 50
+        record-exceptions:
+          - java.lang.Throwable
+          - org.springframework.web.client.HttpServerErrorException
+          - org.springframework.web.client.ResourceAccessException
+          - java.util.concurrent.TimeoutException
