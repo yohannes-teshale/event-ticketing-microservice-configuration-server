@@ -10,6 +10,13 @@ server:
   port: 8082
   zipkin:
     base-url: http://zipkin:9411
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eurekaServer:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: true
 resilience4j:
   retry:
     instances:
