@@ -33,3 +33,8 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     enabled: true
+event-service:
+  event-topic-name: event-created
+  order-topic-name: order-placed
+  group-id-event: events-group
+  group-id-order: orders-group
