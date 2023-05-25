@@ -6,6 +6,8 @@ spring:
     name: events
   zipkin:
     base-url: http://zipkin:9411
+  kafka:
+   bootstrap-servers: ${KAFKA_BROKER}
 server:
   port: 8083
 eureka:
@@ -15,8 +17,7 @@ eureka:
    fetch-registry: true
    register-with-eureka: true
    enabled: false
-#  kafka:
-#    bootstrap-servers: kafka:9092
+ 
 
 kafka-producer-config:
   acks: all
