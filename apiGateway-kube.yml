@@ -7,7 +7,7 @@ server:
       registerWithEureka: true
       fetchRegistry: true
       serviceUrl:
-        defaultZone: http://eureka-server:8070/eureka/
+        defaultZone: http://eureka-server:8761/eureka/
 spring:
   cloud:
     gateway:
