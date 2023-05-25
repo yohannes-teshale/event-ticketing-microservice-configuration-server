@@ -16,3 +16,8 @@ spring:
         lowerCaseServiceId: true
   zipkin:
     base-url: http://zipkin:9411
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
