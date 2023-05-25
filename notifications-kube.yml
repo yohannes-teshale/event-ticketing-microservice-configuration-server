@@ -1,0 +1,14 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: true
+  zipkin:
+    base-url: http://zipkin:9411
+spring:
+  application:
+    name: notifications
+server:
+  port: 8088

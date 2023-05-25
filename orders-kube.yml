@@ -1,66 +1,75 @@
 spring:
   data:
     mongodb:
-      uri: ${MONGODB_URI:"mongodb://mongo:27017/events"}
+      uri: mongodb://mongo:27017/orders
   application:
-    name: events
-
+    name: orders
   zipkin:
     base-url: http://zipkin:9411
   kafka:
-   bootstrap-servers: ${KAFKA_BROKER}
+    bootstrap-servers: ${KAFKA_BROKER}
 server:
-  port: 8083
+  port: 8082
+
 eureka:
- client:
-   service-url:
-     defaultZone: http://eureka-server:8761/eureka
-   fetch-registry: true
-   register-with-eureka: true
-   enabled: false
- 
-
-kafka-producer-config:
-  acks: all
-  key-serializer-class: org.apache.kafka.common.serialization.StringSerializer
-  value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
-  compression-type: snappy
-  batch-size: 16384
-  batch-size-boost-factor: 100
-  linger-ms: 5
-  request-timeout-ms: 60000
-  retry-count: 5
-
-
-  
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: true
 resilience4j:
   retry:
     instances:
-      retryEventService:
+      retryOrderService:
         max-attempts: 5
         wait-duration: 10000
         retry-exceptions:
           - java.util.concurrent.TimeoutException
   bulkhead:
     instances:
-      bulkheadEventService:
+      bulkheadOrderservice:
         max-wait-duration: 10ms
         max-concurrent-calls: 200
   thread-pool-bulkhead:
     instances:
-      bulkheadEventService:
+      bulkheadOrderservice:
         max-thread-pool-size: 1
         core-thread-pool-size: 1
         queue-capacity: 1
         keep-alive-duration: 20ms
   circuitbreaker:
     instances:
-      eventService:
+      orderService:
         register-health-indicator: true
         ring-buffer-size-in-closed-state: 5
         ring-buffer-size-in-half-open-state: 3
         wait-duration-in-open-state:
 
+        failure-rate-threshold: 50
+        record-exceptions:
+          - java.lang.Throwable
+          - org.springframework.web.client.HttpServerErrorException
+          - org.springframework.web.client.ResourceAccessException
+          - java.util.concurrent.TimeoutException
+
+      ticketService:
+        register-health-indicator: true
+        ring-buffer-size-in-closed-state: 6
+        ring-buffer-size-in-half-open-state: 3
+        waitDurationInOpenState: 10s
+
+        failure-rate-threshold: 50
+        record-exceptions:
+          - java.lang.Throwable
+          - org.springframework.web.client.HttpServerErrorException
+          - org.springframework.web.client.ResourceAccessException
+          - java.util.concurrent.TimeoutException
+      eventAnalysisService:
+        register-health-indicator: true
+        ring-buffer-size-in-closed-state: 6
+        ring-buffer-size-in-half-open-state: 3
+        waitDurationInOpenState: 10s
         failure-rate-threshold: 50
         record-exceptions:
           - java.lang.Throwable

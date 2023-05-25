@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: eventAnalysis
+  zipkin:
+    base-url: http://zipkin:9411
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+  kafka:
+    bootstrap-servers: ${KAFKA_BROKER}
+server:
+  port: 8085
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: true
+event-service:
+  event-topic-name: event-created
+  order-topic-name: order-placed
+  group-id-event: events-group
+  group-id-order: orders-group
