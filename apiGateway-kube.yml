@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: gatewayServer
+  zipkin:
+    base-url: http://zipkin:9411
+  cloud:
+    gateway:
+      routes:
+        - id: users
+          uri: lb://USERS
+          predicates:
+            - Path=/api/users/**
+        - id: tickets
+          uri: lb://TICKETS
+          predicates:
+            - Path=/api/tickets/**
+        - id: events
+          uri: lb://EVENTS
+          predicates:
+            - Path=/api/events/**
+        - id: eventAnalysis
+          uri: lb://EVENTANALYSIS
+          predicates:
+            - Path=/eventAnalytics/**
+        - id: notifications
+          uri: lb://NOTIFICATIONS
+          predicates:
+            - Path= /api/notifications/**
+        - id: orders
+          uri: lb://ORDERS
+          predicates:
+            - Path=/api/orders/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+server:
+  port: 10110
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+    enabled: true
