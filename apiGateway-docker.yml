@@ -19,9 +19,13 @@ spring:
           predicates:
             - Path=/api/events/**
         - id: eventAnalysis
-          uri: lb://EVENTS
+          uri: lb://EVENTANALYSIS
           predicates:
-            - Path=/api/eventAnalysis/**
+            - Path=/eventAnalytics/**
+        - id: notifications
+          uri: lb://NOTIFICATIONS
+          predicates:
+            - Path= /api/notifications/**
         - id: orders
           uri: lb://ORDERS
           predicates:
